@@ -1,5 +1,11 @@
+package SnakeAndLadder;
 
 public class qentry {
+	
+	public qentry()
+	{
+		
+	}
     public qentry(int v, int dist) {
 		// TODO Auto-generated constructor stub
     	this.v = v;

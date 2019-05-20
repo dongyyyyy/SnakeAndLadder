@@ -1,24 +1,9 @@
+package SnakeAndLadder;
 import java.util.*;
-  
-public class SnakeAndLadder  
-{ 
 
-    static class qentry implements Comparable<qentry>
-    {
-    	int v;
-    	int dist;
-    	
-    	@Override
-    	public int compareTo(qentry target)
-    	{
-    		if(this.v < target.v)
-    			return 1;
-    		else if(this.v > target.v)
-    			return -1;
-    		return 0;			
-    	}
+//깊이 우선 탐색
+public class QueueProblem {
 
-    }
     // This function returns minimum number of dice  
     // throws required to Reach last cell from 0'th cell  
     // in a snake and ladder game. move[] is an array of  
@@ -30,19 +15,19 @@ public class SnakeAndLadder
     { // move = map / n = array MAX 
     	int count = 0;
         int visited[] = new int[n];  // visited array
-        PriorityQueue<qentry> q = new PriorityQueue<>();  // queue
+        Queue<qentry> q = new LinkedList<>();  // queue
         qentry qe = new qentry(); 
         qe.v = 0; 
         qe.dist = 0; 
   
         // Mark the node 0 as visited and enqueue it. 
         visited[0] = 1; 
-        q.offer(qe); // init
+        q.add(qe); // init
   
         // Do a BFS starting from vertex at index 0 
         while (!q.isEmpty())  
         { 
-            qe = q.poll();
+            qe = q.remove();
             System.out.println("remove : " + qe.dist+ "," + qe.v);
             int v = qe.v; 
   
@@ -72,42 +57,40 @@ public class SnakeAndLadder
                         a.v = move[j]; 
                     else // already visited
                         a.v = j; 
-                    q.offer(a); 
+                    q.add(a); 
+                    count++;
                 } 
             } 
-            System.out.println("===Queue print===");
-            for(qentry data : q)
-            {
-            	System.out.print( "v = " + data.v + ",dist = "+ data.dist + "/");
-            }
-            System.out.println();
+           // System.out.println("===Queue print===");
+           // System.out.println();
         } 
         //list 추가한거 출력해보기
         //print visited
         // We reach here when 'qe' has last vertex 
-        // return the distance of vertex in 'qe' 
+        // return the distance of vertex in 'qe'
+        System.out.println("count = " + count);
         return qe.dist; 
     } 
   
     public static void main(String[] args)  
     { 
         // Let us construct the board given in above diagram 
-        int N = 36; 
+        int N = 100; 
         int moves[] = new int[N]; 
         for (int i = 0; i < N; i++)  // init ary to -1
             moves[i] = -1; 
   
         // Ladders 
-        moves[3] = 15; 
-        moves[15] = 24; 
-        moves[21] = 31; 
+        moves[7] = 54; 
+        moves[18] = 75; 
+        moves[31] = 92; 
   
         // Snakes 
-        moves[12] = 1; 
-        moves[29] = 3; 
-        moves[34] = 21;  
+        moves[96] = 58; 
+        moves[55] = 3; 
+        moves[87] = 32;  
   
         System.out.println("Min Dice throws required is " +  
                           getMinDiceThrows(moves, N)); 
     } 
-} 
+}
